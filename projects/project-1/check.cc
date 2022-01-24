@@ -21,6 +21,12 @@ void Check::write_check(std::istream& ins){
 	/* You are to write the implementation of this function to read 
 	from the keyboard or a file. Remember to use getline to read the 
 	payto.  */
+	cout << "Input the date: ";
+	cin >> date;
+	cout << "Input the name of who you're paying: ";
+	getline(cin, payto);
+	cout << "Input the amount being payed: ";
+	cin >> amount;
 
 }
 
@@ -28,6 +34,10 @@ void Check::output(std::ostream& outs)const{
 	/* You are to write the implementation of this function to write 
 	to the monitor or to a file. Remember not to put labels into the 
 	file.*/
+	cout << "Pay to: " << payto << endl;
+	cout << "Date: " << date << endl;
+	cout << "Amount: " << amount << endl;
+	cout << "Check number: " << checknum << endl;
 
 }
 
