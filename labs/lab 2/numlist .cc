@@ -36,8 +36,8 @@ void NumList::load_from_file(istream& ins){
 
 void NumList::save_to_file(ostream& outs){
 	if (!outs.fail()) {
-		for (int i = 0; i < used; i++){
-			outs << data[used] << endl;
+		for (size_t i = 0; i < used; i++){
+			outs << data[i] << endl;
 		}
 	}
 }
@@ -66,13 +66,13 @@ void NumList::b_sort(){
     int j;
     int tmp;
     while(!done){
-		done = !true;
-		for(j=used-1; j>= 0; --j){
+		done = true;
+		for(j = used-1; j > 0; --j){
 			if(data[j] < data[j-1]){
-			done = false;
-			tmp = data[j];
-			data[j] = data[j-1];
-			data[j=1] = tmp;
+				done = false;
+				tmp = data[j];
+				data[j] = data[j-1];
+				data[j-1] = tmp;
 			}
 		}
     }
