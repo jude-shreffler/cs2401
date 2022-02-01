@@ -19,8 +19,11 @@ void Checkbook::load_from_file(std::ifstream &ifs) {
 
     /// input the checks
     used = 0;
-    while (ifs >> checkList[used]) { 
+    while (!ifs.eof()) { 
+        ifs >> checkList[used];
         used++;
+        /// this will ignore any end of line characters, correctly triggering ifs.eof()
+        while(ifs.peek() == '\n' || ifs.peek() == '\r') ifs.ignore();
     }
 }
 

@@ -43,15 +43,15 @@ void Check::output(std::ostream& outs)const{
 	to the monitor or to a file. Remember not to put labels into the 
 	file.*/
 	if (&outs == &cout) {
-		outs << "Pay to: " << payto << endl;
-		outs << "Date: " << date << endl;
-		outs << "Amount: " << amount << endl;
 		outs << "Check number: " << checknum << endl;
+		outs << "Date: " << date << endl;
+		outs << "Pay to: " << payto << endl;
+		outs << "Amount: " << amount << endl;
 	} else {
-		outs << payto << endl;
-		outs << date << endl;
-		outs << amount << endl;
 		outs << checknum << endl;
+		outs << date << endl;
+		outs << payto << endl;
+		outs << amount << endl;
 	}
 }
 
