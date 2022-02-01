@@ -43,7 +43,7 @@ void Checkbook::deposit(double depamount) {
 }
 
 void Checkbook::write_check(std::istream &cin) {
-    /// input the data for the check, then insert the check num and increment used and checkNum
+    /// input the data for the check, then insert the check num and increment used and checkNum TODO: make this subtract amount from balance
     checkList[used].write_check(cin);
     checkList[used].set_check_num(checkNum);
     used++;
@@ -58,4 +58,10 @@ void Checkbook::show_all(std::ostream &cout)const {
     for (int i = 0; i < used; i++) {
         cout << checkList[i];
     }
+}
+
+void Checkbook::remove(int rmnum) {
+    /// copy check from index used - 1 to rmnum, used-- TODO: make this remove checknum rmnum not index rmnum and add amount to balance
+    checkList[rmnum] = checkList[used - 1];
+    used--;
 }
