@@ -19,7 +19,7 @@ functions that you will be creating in your Checkbook class (12 in total).
 #include <fstream>
 #include <string>
 #include "check.h"
-//#include "checkbook.h"
+#include "checkbook.h"
 using namespace std;
 
 /* This function shows the user the menu, asks them to enter their 
@@ -45,7 +45,7 @@ int main(){
 
 	// if no file this is first running for this user
     if(!ifs.fail()){ 
-		//	mychecks.load_from_file(ifs);
+		mychecks.load_from_file(ifs);
 		ifs.close();
     }
 
@@ -55,16 +55,16 @@ int main(){
 			case 1:
 				cout << "Please enter amount of the deposit: $";
 				cin >> depamount;
-				//mychecks.deposit(depamount);
+				mychecks.deposit(depamount);
 				break;
 			case 2:
-				//mychecks.write_check(cin);
+				mychecks.write_check(cin);
 				break;
 			case 3:
-				//cout << "Your account balance: $" << mychecks.get_balance();
+				cout << "Your account balance: $" << mychecks.get_balance();
 				break;
 			case 4:
-				//mychecks.show_all(cout);
+				mychecks.show_all(cout);
 				break;
 			case 5:
 				cout << "Enter the Check Number of the Check to be removed: ";
@@ -102,7 +102,7 @@ int main(){
 
 	ofs.open(userfile.c_str());
 	if(!ofs.fail()){
-		//mychecks.save(ofs);
+		mychecks.save(ofs);
 	    ofs.close();
 	}
 

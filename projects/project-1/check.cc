@@ -21,24 +21,38 @@ void Check::write_check(std::istream& ins){
 	/* You are to write the implementation of this function to read 
 	from the keyboard or a file. Remember to use getline to read the 
 	payto.  */
-	cout << "Input the date: ";
-	cin >> date;
-	cout << "Input the name of who you're paying: ";
-	getline(cin, payto);
-	cout << "Input the amount being payed: ";
-	cin >> amount;
-
+	if (&ins == &cin) {
+		cout << "Input the date: ";
+		ins >> date;
+		cout << "Input the name of who you're paying: ";
+		while(ins.peek() == '\n' || ins.peek() == '\r') ins.ignore();
+		getline(ins, payto);
+		cout << "Input the amount being payed: ";
+		ins >> amount;
+	} else {
+		ins >> checknum;
+		ins >> date;
+		while(ins.peek() == '\n' || ins.peek() == '\r') ins.ignore();
+		getline(ins, payto);
+		ins >> amount;
+	}
 }
 
 void Check::output(std::ostream& outs)const{
 	/* You are to write the implementation of this function to write 
 	to the monitor or to a file. Remember not to put labels into the 
 	file.*/
-	cout << "Pay to: " << payto << endl;
-	cout << "Date: " << date << endl;
-	cout << "Amount: " << amount << endl;
-	cout << "Check number: " << checknum << endl;
-
+	if (&outs == &cout) {
+		outs << "Pay to: " << payto << endl;
+		outs << "Date: " << date << endl;
+		outs << "Amount: " << amount << endl;
+		outs << "Check number: " << checknum << endl;
+	} else {
+		outs << payto << endl;
+		outs << date << endl;
+		outs << amount << endl;
+		outs << checknum << endl;
+	}
 }
 
 ostream& operator << (ostream& outs, const Check& c){
