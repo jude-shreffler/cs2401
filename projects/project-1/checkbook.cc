@@ -73,3 +73,21 @@ void Checkbook::remove(int rmnum) {
         }
     }
 }
+
+void Checkbook::number_sort() {
+    /// sort the numbers by check number, using bubble sort
+    Check temp;
+    bool done = false;
+
+    while(!done) {
+        done = true;
+        for (int i = 0; i < used - 1; i++) {
+            if(checkList[i].get_num() > checkList[i + 1].get_num()) {
+                temp = checkList[i];
+                checkList[i] = checkList[i + 1];
+                checkList[i + 1] = temp;
+                done = false;
+            }
+        }
+    }
+}
