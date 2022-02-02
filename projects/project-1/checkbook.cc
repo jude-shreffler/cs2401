@@ -48,6 +48,7 @@ void Checkbook::write_check(std::istream &cin) {
     checkList[used].set_check_num(checkNum);
     used++;
     checkNum++;
+    balance -= checkList[used - 1].get_amount();
 }
 
 double Checkbook::get_balance()const {
@@ -61,7 +62,14 @@ void Checkbook::show_all(std::ostream &cout)const {
 }
 
 void Checkbook::remove(int rmnum) {
-    /// copy check from index used - 1 to rmnum, used-- TODO: make this remove checknum rmnum not index rmnum and add amount to balance
-    checkList[rmnum] = checkList[used - 1];
-    used--;
+    /// loop through checkList checking checknum
+    for (int i = 0; i < used; i++) {
+        if (checkList[i].get_num() == rmnum) {
+            /// add the amount of the check being deleted back to balance
+            balance += checkList[i].get_amount();
+            checkList[i] = checkList[used - 1];
+            i = used;
+            used--;
+        }
+    }
 }

@@ -69,7 +69,7 @@ int main(){
 			case 5:
 				cout << "Enter the Check Number of the Check to be removed: ";
 				cin >> rmnum;
-				//mychecks.remove(rmnum);
+				mychecks.remove(rmnum);
 				break;
 			case 6:
 				//mychecks.number_sort();
