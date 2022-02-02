@@ -43,7 +43,7 @@ void Checkbook::deposit(double depamount) {
 }
 
 void Checkbook::write_check(std::istream &cin) {
-    /// input the data for the check, then insert the check num and increment used and checkNum TODO: make this subtract amount from balance
+    /// input the data for the check, then insert the check num and increment used and checkNum
     checkList[used].write_check(cin);
     checkList[used].set_check_num(checkNum);
     used++;
@@ -57,7 +57,7 @@ double Checkbook::get_balance()const {
 
 void Checkbook::show_all(std::ostream &cout)const {
     for (int i = 0; i < used; i++) {
-        cout << checkList[i];
+        cout << checkList[i] << endl;
     }
 }
 
@@ -140,7 +140,7 @@ void Checkbook::show(std::string payto_find)const{
         }
     }
     
-    cout << "Total: " << total << endl << endl;
+    cout << "Total: $" << total << endl << endl;
 }
 
 double Checkbook::average()const{

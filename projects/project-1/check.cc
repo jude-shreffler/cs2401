@@ -46,7 +46,7 @@ void Check::output(std::ostream& outs)const{
 		outs << "Check number: " << checknum << endl;
 		outs << "Date: " << date << endl;
 		outs << "Pay to: " << payto << endl;
-		outs << "Amount: " << amount << endl;
+		outs << "Amount: $" << amount << endl;
 	} else {
 		outs << checknum << endl;
 		outs << date << endl;
