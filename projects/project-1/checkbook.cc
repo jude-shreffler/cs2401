@@ -91,3 +91,40 @@ void Checkbook::number_sort() {
         }
     }
 }
+
+void Checkbook::payto_sort() {
+    /// sort the numbers alphabetically by payto, using bubble sort
+    Check temp;
+    bool done = false;
+
+    while(!done) {
+        done = true;
+        for (int i = 0; i < used - 1; i++) {
+            /// if compare returns positive, str1 is "greater"
+            if(checkList[i].get_payto().compare(checkList[i+1].get_payto()) > 0) {
+                temp = checkList[i];
+                checkList[i] = checkList[i + 1];
+                checkList[i + 1] = temp;
+                done = false;
+            }
+        }
+    }
+}
+
+void Checkbook::date_sort() {
+    /// sort the numbers by date, using bubble sort
+    Check temp;
+    bool done = false;
+
+    while(!done) {
+        done = true;
+        for (int i = 0; i < used - 1; i++) {
+            if(checkList[i].get_date() > checkList[i + 1].get_date()) {
+                temp = checkList[i];
+                checkList[i] = checkList[i + 1];
+                checkList[i + 1] = temp;
+                done = false;
+            }
+        }
+    }
+}
