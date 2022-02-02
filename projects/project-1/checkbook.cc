@@ -1,3 +1,9 @@
+/**
+ * @file checkbook.cc
+ * @author Jude Shreffler (js467820@ohio.edu)
+ * @brief implementation of checkbook class
+ * @date 2022-02-02
+ */
 #include <iostream>
 #include <fstream>
 #include <string>
