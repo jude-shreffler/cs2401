@@ -129,7 +129,7 @@ void Checkbook::date_sort() {
     }
 }
 
-void Checkbook::show(std::string payto_find) {
+void Checkbook::show(std::string payto_find)const{
     double total = 0;
     cout << endl;
 
@@ -141,4 +141,13 @@ void Checkbook::show(std::string payto_find) {
     }
     
     cout << "Total: " << total << endl << endl;
+}
+
+double Checkbook::average()const{
+    double total = 0;
+    for (int i = 0; i < used; i++) {
+        total += checkList[i].get_amount();
+    }
+
+    return total / used;
 }
