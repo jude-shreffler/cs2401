@@ -128,3 +128,17 @@ void Checkbook::date_sort() {
         }
     }
 }
+
+void Checkbook::show(std::string payto_find) {
+    double total = 0;
+    cout << endl;
+
+    for (int i = 0; i < used; i++) {
+        if (checkList[i].get_payto() == payto_find) {
+            cout << checkList[i] << endl;
+            total += checkList[i].get_amount();
+        }
+    }
+    
+    cout << "Total: " << total << endl << endl;
+}
