@@ -13,27 +13,29 @@ Song::Song(){
 }
 
 string Song::get_name()const{
-
-    return "";
+    return name;
 }
 
 Date Song::get_release()const{
-
-    Date tmp;
-    return tmp;
+    return release;
 }
 
 string Song::get_artist()const{
-    
-    return "";
+    return artist;
 }
 
 bool Song::operator == (const Song& other)const{
+    if (name == other.name && artist == other.artist && release == other.release) {
+        return true;
+    }
 
     return false;
 }
 
 bool Song::operator != (const Song& other)const{
+    if (name != other.name || artist != other.artist || release != other.release) {
+        return true;
+    }
 
     return false;
 }
@@ -41,20 +43,36 @@ bool Song::operator != (const Song& other)const{
 void Song::input(std::istream& ins){
     if (&ins == &cin) {
         cout << "Input name: ";
-        ins >> name;
+        while(ins.peek() == '\n' || ins.peek() == '\r') ins.ignore();
+        getline(ins, name);
+        
         cout << "Input artist: ";
-        ins >> artist;
+        while(ins.peek() == '\n' || ins.peek() == '\r') ins.ignore();
+        getline(ins, artist);
+        
         cout << "Input release date: ";
         ins >> release;
     } else {
-        ins >> name;
-        ins >> artist;
+        while(ins.peek() == '\n' || ins.peek() == '\r') ins.ignore();
+        getline(ins, name);
+
+        while(ins.peek() == '\n' || ins.peek() == '\r') ins.ignore();
+        getline(ins, artist);
+
         ins >> release;
     }
 }
 
 void Song::output(std::ostream& outs)const{
-
+    if (&outs == &cout) {
+        outs << "Name: " << name << endl;
+        outs << "Artist: " << artist << endl;
+        outs << "Release date: " << release << endl;
+    } else {
+        outs << name << endl;
+        outs << artist << endl;
+        outs << release << endl;
+    }
 }
 
 istream& operator >> (std::istream& ins, Song& s){

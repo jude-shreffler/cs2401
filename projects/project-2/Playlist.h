@@ -34,17 +34,17 @@ class Playlist{
         void insert(const Song& s);
         void attach(const Song& s);
         
-        void show_all(std::ostream& outs)const;
+        void show_all(std::ostream& outs) const;
         void releaseDate_sort();
         void artist_sort();
-        Song find_song(const std::string& name)const;
+        Song find_song(const std::string& name);
         bool is_song(const Song& s) const;
 
         void load(std::istream& ins);
         void save(std::ostream& outs)const;
 
     private:
-        Song *data;
+        Song* data;
         int used;
         int capacity;
         int current_index;
