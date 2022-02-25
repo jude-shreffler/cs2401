@@ -26,8 +26,8 @@ struct node{
 void build_list(node*& head);  // note that we are passing by reference
 void show_list(const node* head);
 int size(const node* head);
-void remove_repeats(node*& head);
-void splitList(node*& head, node*& headOne, node*& headTwo, int splitPoint);
+void removeRepeats(node*& head);
+void splitList(node*& head, node*& lesser, node*& greater, int splitPoint);
 
 bool search(node*& head, int data);
 void push(node*& head, int data);
@@ -41,62 +41,78 @@ void split_list(const node* original, node*& lesser, node*& greater, int split_v
 
 
 int main(){
-     int start, stop;
-     int split;
-     node* head = NULL;
-     node* lesser;
-     node* greater;
+    int start, stop;
+    int split;
+    node* head = NULL;
+    node* lesser;
+    node* greater;
 
-     start = time(NULL);
-     build_list(head);
-     stop = time(NULL);
-     cout << "Time to build list = " << stop - start << "seconds.\n";
+    srand(time(NULL));
 
-     start = time(NULL);
-     show_list(head);
-     stop = time(NULL);
-     cout << "Time to print list = " << stop - start << "seconds.\n";
-     cout << "Size of the list = " << size(head) << endl;
+    start = time(NULL);
+    build_list(head);
+    stop = time(NULL);
+    cout << "Time to build list = " << stop - start << "seconds.\n";
 
-     start = time(NULL);
-     removeRepeats(head);
-     stop = time(NULL);
-     cout << "Time to remove repeats = " << stop - start << "seconds." << endl;
+    start = time(NULL);
+    show_list(head);
+    stop = time(NULL);
+    cout << "Time to print list = " << stop - start << "seconds.\n";
+    cout << "Size of the list = " << size(head) << endl;
 
-     start = time(NULL);
-     show_list(head);
-     stop = time(NULL);
-     cout << "Time to print list = " << stop - start << "seconds." << endl;
-     cout << "Size of the list = " << size(head) << endl;
+    start = time(NULL);
+    removeRepeats(head);
+    stop = time(NULL);
+    cout << "Time to remove repeats = " << stop - start << "seconds." << endl;
 
-     return 0;
+    start = time(NULL);
+    show_list(head);
+    stop = time(NULL);
+    cout << "Time to print list = " << stop - start << " seconds." << endl;
+    cout << "Size of the list = " << size(head) << endl;
+
+    cout << "Enter a split value: ";
+    cin >> split;
+
+    start = time(NULL);
+    splitList(head, lesser, greater, split);
+    stop = time(NULL);
+    
+    show_list(lesser);
+    cout << "Size of the list of numbers from the main list that are less than split = " << size(lesser) << endl;
+
+    show_list(greater);
+    cout << "Size of the list of numbers from the main list that are greater than split = " << size(greater) << endl;
+
+    cout << "Time to split the original list into two parts = " << stop - start << " seconds." << endl;
+    return 0;
 }
 
 // builds a linked list of 2000 random integers, all in the range 1 - 500
 void build_list(node*& head){
-     node* cursor;
+    node* cursor;
 
-     head = new node;
-     head -> data = rand()%500 + 1;
+    head = new node;
+    head -> data = rand()%500 + 1;
 
-     cursor = head;
-     for(int i = 0; i < 2000; ++i){
-	     cursor -> next = new node;
-          cursor = cursor -> next;
-          cursor -> data = rand()%500 + 1;
-     }
-     cursor -> next = NULL;
+    cursor = head;
+    for(int i = 0; i < 2000; ++i){
+	    cursor -> next = new node;
+        cursor = cursor -> next;
+        cursor -> data = rand()%500 + 1;
+    }
+    cursor -> next = NULL;
 }
 
 // outputs the contents of a linked list to the screen
 void show_list(const node* head){
-     const node* cursor = head;
+    const node* cursor = head;
 
-     while(cursor != NULL){
-          cout << cursor -> data << "  ";
-          cursor = cursor -> next;
-     }
-     cout << endl;
+    while(cursor != NULL){
+        cout << cursor -> data << "  ";
+        cursor = cursor -> next;
+    }
+    cout << endl;
 }
 
 // returns the number of nodes in a linked list
@@ -134,15 +150,23 @@ void removeRepeats(node*& head) {
     }
 }
 
-void splitList(node*& head, node*& headOne, node*& headTwo, int splitPoint) {
-    headOne = new node;
-    headTwo = new node;
+void splitList(node*& head, node*& lesser, node*& greater, int splitPoint) {
+    lesser = new node;
+    greater = new node;
     node* cursor = head;
-    node* cursorOne = headOne;
-    node* cursorTwo = headTwo;
+    node* lesserCursor = lesser;
+    node* greaterCursor = greater;
 
-    while (cursor != NULL) {
-
+    while (cursor -> next != NULL) {
+        if (cursor -> data < splitPoint) {
+            lesserCursor -> data = cursor -> data;
+            lesserCursor -> next = new node;
+            lesserCursor = lesserCursor -> next;
+        } else if (cursor -> data > splitPoint) {
+            greaterCursor -> data = cursor -> data;
+            greaterCursor -> next = new node;
+            greaterCursor = greaterCursor -> next;
+        }
 
         cursor = cursor -> next;
     }
@@ -150,17 +174,16 @@ void splitList(node*& head, node*& headOne, node*& headTwo, int splitPoint) {
 }
 
 bool search(node*& head, int data) {
-     node* cursor = head;
+    node* cursor = head;
      
-     while (cursor != NULL) {
-          if (data == cursor -> data) {
-               return true;
-          }
+    while (cursor != NULL) {
+        if (data == cursor -> data) {
+            return true;
+        }
+        cursor = cursor -> next;
+    }
 
-          cursor = cursor -> next;
-     }
-
-     return false;
+    return false;
 }
 
 void push(node*& head, int data) {
