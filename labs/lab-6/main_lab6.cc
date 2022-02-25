@@ -59,7 +59,7 @@ int main(){
      cout << "Size of the list = " << size(head) << endl;
 
      start = time(NULL);
-     remove_repeats(head);
+     removeRepeats(head);
      stop = time(NULL);
      cout << "Time to remove repeats = " << stop - start << "seconds." << endl;
 
@@ -110,7 +110,7 @@ int size(const node* head){
 	return count;
 }
 
-void remove_repeats(node*& head) {
+void removeRepeats(node*& head) {
     node* cursor = head;
     node* checkCursor = head;
 	node* deleter = head;
