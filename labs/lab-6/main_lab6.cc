@@ -47,8 +47,6 @@ int main(){
     node* lesser;
     node* greater;
 
-    srand(time(NULL));
-
     start = time(NULL);
     build_list(head);
     stop = time(NULL);
@@ -151,26 +149,44 @@ void removeRepeats(node*& head) {
 }
 
 void splitList(node*& head, node*& lesser, node*& greater, int splitPoint) {
-    lesser = new node;
-    greater = new node;
     node* cursor = head;
-    node* lesserCursor = lesser;
-    node* greaterCursor = greater;
+    node* lesserCursor;
+    node* greaterCursor;
+	bool lesserStarted = false;
+	bool greaterStarted = false;
 
-    while (cursor -> next != NULL) {
+    while (cursor != NULL) {
         if (cursor -> data < splitPoint) {
-            lesserCursor -> data = cursor -> data;
-            lesserCursor -> next = new node;
-            lesserCursor = lesserCursor -> next;
+			if (lesserStarted == false) {
+				lesser = new node;
+				lesserCursor = lesser;
+				lesserStarted = true;
+			} else {
+				lesserCursor -> next = new node;
+				lesserCursor = lesserCursor -> next;
+			}
+            
+			lesserCursor -> data = cursor -> data;
+
         } else if (cursor -> data > splitPoint) {
+			if (greaterStarted == false) {
+				greater = new node;
+				greaterCursor = greater;
+				greaterStarted = true;
+			} else {
+				greaterCursor -> next = new node;
+				greaterCursor = greaterCursor -> next;
+			}
+
             greaterCursor -> data = cursor -> data;
-            greaterCursor -> next = new node;
-            greaterCursor = greaterCursor -> next;
+    
         }
 
         cursor = cursor -> next;
     }
     
+    greaterCursor -> next = NULL;
+    lesserCursor -> next = NULL;
 }
 
 bool search(node*& head, int data) {

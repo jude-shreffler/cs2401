@@ -71,8 +71,51 @@ void build_list(node*& head){
      cursor -> next = NULL;
 }
 
+void splitList(node*& head, node*& lesser, node*& greater, int splitPoint) {
+    node* cursor = head;
+    node* lesserCursor;
+    node* greaterCursor;
+	bool lesserStarted = false;
+	bool greaterStarted = false;
+
+    while (cursor != NULL) {
+        if (cursor -> data < splitPoint) {
+			if (lesserStarted == false) {
+				lesser = new node;
+				lesserCursor = lesser;
+				lesserStarted = true;
+			} else {
+				lesserCursor -> next = new node;
+				lesserCursor = lesserCursor -> next;
+			}
+            
+			lesserCursor -> data = cursor -> data;
+
+        } else if (cursor -> data > splitPoint) {
+			if (greaterStarted == false) {
+				greater = new node;
+				greaterCursor = greater;
+				greaterStarted = true;
+			} else {
+				greaterCursor -> next = new node;
+				greaterCursor = greaterCursor -> next;
+			}
+
+            greaterCursor -> data = cursor -> data;
+    
+        }
+
+        cursor = cursor -> next;
+    }
+    
+    greaterCursor -> next = NULL;
+    lesserCursor -> next = NULL;
+}
+
 int main() {
     node* head = new node;
+	node* lesser;
+	node* greater;
 	///node* cursor = head;
 
 	build_list(head);
@@ -88,9 +131,15 @@ int main() {
 	// cursor -> next = NULL;
 
 	show_list(head);
+	cout << endl;
 
     remove_repeats(head);
     show_list(head);
+
+	splitList(head, lesser, greater, 5);
+
+	show_list(lesser);
+	show_list(greater);
 
     return 0;
 }
