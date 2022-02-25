@@ -32,14 +32,6 @@ void splitList(node*& head, node*& lesser, node*& greater, int splitPoint);
 bool search(node*& head, int data);
 void push(node*& head, int data);
 
-//These are the two that you are to write, as described in the 
-//instructions page.
-/*
-void remove_repeats(node*& head);
-void split_list(const node* original, node*& lesser, node*& greater, int split_value);
-*/
-
-
 int main(){
     int start, stop;
     int split;
