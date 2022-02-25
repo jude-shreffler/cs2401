@@ -26,6 +26,11 @@ struct node{
 void build_list(node*& head);  // note that we are passing by reference
 void show_list(const node* head);
 int size(const node* head);
+void remove_repeats(node*& head);
+void splitList(node*& head, node*& headOne, node*& headTwo, int splitPoint);
+
+bool search(node*& head, int data);
+void push(node*& head, int data);
 
 //These are the two that you are to write, as described in the 
 //instructions page.
@@ -53,6 +58,16 @@ int main(){
      cout << "Time to print list = " << stop - start << "seconds.\n";
      cout << "Size of the list = " << size(head) << endl;
 
+     start = time(NULL);
+     remove_repeats(head);
+     stop = time(NULL);
+     cout << "Time to remove repeats = " << stop - start << "seconds." << endl;
+
+     start = time(NULL);
+     show_list(head);
+     stop = time(NULL);
+     cout << "Time to print list = " << stop - start << "seconds." << endl;
+     cout << "Size of the list = " << size(head) << endl;
 
      return 0;
 }
@@ -66,9 +81,9 @@ void build_list(node*& head){
 
      cursor = head;
      for(int i = 0; i < 2000; ++i){
-	cursor -> next = new node;
-        cursor = cursor -> next;
-        cursor -> data = rand()%500 + 1;
+	     cursor -> next = new node;
+          cursor = cursor -> next;
+          cursor -> data = rand()%500 + 1;
      }
      cursor -> next = NULL;
 }
@@ -77,7 +92,7 @@ void build_list(node*& head){
 void show_list(const node* head){
      const node* cursor = head;
 
-     while(cursor !=  NULL){
+     while(cursor != NULL){
           cout << cursor -> data << "  ";
           cursor = cursor -> next;
      }
@@ -93,4 +108,71 @@ int size(const node* head){
 	    cursor = cursor -> next;
 	}
 	return count;
+}
+
+void remove_repeats(node*& head) {
+    node* cursor = head;
+    node* checkCursor = head;
+	node* deleter = head;
+
+    while (cursor != NULL) {
+		while (checkCursor != cursor) {
+			if (checkCursor -> data == cursor -> data) {
+				/// delete cursor and move to next element
+				deleter = head;
+				while (deleter -> next != cursor) {
+					deleter = deleter -> next;
+				}
+
+				deleter -> next = cursor -> next;
+				break;
+			}
+			checkCursor = checkCursor -> next;	
+		}
+		cursor = cursor -> next;
+		checkCursor = head;
+    }
+}
+
+void splitList(node*& head, node*& headOne, node*& headTwo, int splitPoint) {
+    headOne = new node;
+    headTwo = new node;
+    node* cursor = head;
+    node* cursorOne = headOne;
+    node* cursorTwo = headTwo;
+
+    while (cursor != NULL) {
+
+
+        cursor = cursor -> next;
+    }
+    
+}
+
+bool search(node*& head, int data) {
+     node* cursor = head;
+     
+     while (cursor != NULL) {
+          if (data == cursor -> data) {
+               return true;
+          }
+
+          cursor = cursor -> next;
+     }
+
+     return false;
+}
+
+void push(node*& head, int data) {
+    node* cursor = head;
+
+    while (cursor -> next != NULL) {
+        cursor = cursor -> next;
+    }
+
+    cursor -> next = new node;
+    cursor = cursor -> next;
+
+    cursor -> data = data;
+    cursor -> next = NULL;
 }
