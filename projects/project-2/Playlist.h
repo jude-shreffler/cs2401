@@ -37,7 +37,7 @@ class Playlist{
         void show_all(std::ostream& outs) const;
         void releaseDate_sort();
         void artist_sort();
-        Song find_song(const std::string& name);
+        Song find_song(const std::string& name) const;
         bool is_song(const Song& s) const;
 
         void load(std::istream& ins);

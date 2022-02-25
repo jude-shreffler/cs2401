@@ -1,3 +1,10 @@
+/**
+ * @file Playlist.cc
+ * @author Jude Shreffler (js467820@ohio.edu)
+ * @brief Implementation file for Playlist class
+ * @date 2022-02-18
+ */
+
 #include "Playlist.h"
 #include <iostream>
 
@@ -151,12 +158,11 @@ void Playlist::artist_sort() {
         }
 }
 
-Song Playlist::find_song(const std::string &name) {
+Song Playlist::find_song(const std::string &name) const{
         Song tmp;
-        start();
-        for (current_index; current_index < used; advance()) {
-                if (data[current_index].get_name() == name) {
-                        return data[current_index];
+        for (int i = 0; i < used; i++) {
+                if (data[i].get_name() == name) {
+                        return data[i];
                 }
         }
 

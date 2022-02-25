@@ -1,3 +1,10 @@
+/**
+ * @file Song.cc
+ * @author Jude Shreffler (js467820@ohio.edu)
+ * @brief Implementation file for Song class
+ * @date 2022-02-18
+ */
+
 #include "Song.h"
 #include "date.h"
 #include <iostream>
