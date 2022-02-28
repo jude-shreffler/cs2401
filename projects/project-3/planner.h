@@ -9,8 +9,8 @@ class Planner {
     public:
         /// The Big 3
         ~Planner();
-        Planner(Planner& planner2);
-        Planner operator + (Planner& planner2);
+        Planner(Planner& plannerOld);
+        Planner operator + (Planner& plannerOld);
 
         Planner();
         void add(Assignment& assignmentInfo);
