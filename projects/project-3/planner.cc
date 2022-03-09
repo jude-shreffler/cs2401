@@ -90,7 +90,29 @@ void Planner::save(std::ostream& outs) {
 /// Helpers
 
 void Planner::add(Assignment& assignmentInfo) {
-    
+    node* cursor = head;
+
+    if (head == NULL) {
+        head = new node;
+        head->set_data(assignmentInfo);
+        head->set_link(NULL);
+        return;
+    }
+
+    while (cursor->link() != NULL && cursor->link()->data().get_due() < assignmentInfo.get_due()) cursor = cursor->link(); /// this sets the cursor to the node before where we want to insert our node
+
+    if (cursor->link() == NULL) {
+        cursor->set_link(new node);
+        cursor = cursor->link();
+        cursor->set_data(assignmentInfo);
+        cursor->set_link(NULL);
+    } else {
+        node* nextElement = cursor->link();
+        cursor->set_link(new node);
+        cursor = cursor->link();
+        cursor->set_data(assignmentInfo);
+        cursor->set_link(nextElement);
+    }
 }
 
 void Planner::display(std::ostream& cout) {
@@ -103,30 +125,77 @@ void Planner::display(std::ostream& cout) {
 }
 
 Assignment Planner::find(std::string assignmentName) {
+    node* cursor = head;
 
-    return Assignment();
+    ///moves cursor to the node we want
+    while(cursor != NULL && cursor->data().get_name() != assignmentName) cursor = cursor->link();
+    
+    if (cursor == NULL) {
+        return Assignment();
+    } else {
+        return cursor->data();
+    }
 }
 
 void Planner::remove(std::string assignmentName) {
+    node* cursor = head;
 
+    /// moves the cursor to the node before the one that we want to remove
+    while(cursor != NULL && cursor->link()->data().get_name() != assignmentName) cursor = cursor->link(); 
+    node* deleter = cursor->link();
+
+    cursor->set_link(deleter->link());
+    delete deleter;
 }
 
 int Planner::waiting() {
+    node* cursor = head;
+    int counter = 0;
 
-    return 1;
+    while (cursor != NULL) {
+        cursor = cursor->link();
+        counter++;
+    }
+
+    return counter;
 }
 
-int Planner::due_next() {
+unsigned int Planner::due_next() {
+    DateTime temp;
+    temp.make_now();
 
-    return 1;
+    unsigned int dueTime = head->data().get_due().minutes_since_1970();
+    unsigned int nowTime = temp.minutes_since_1970();
+    
+    if (nowTime < dueTime) {
+        return dueTime - nowTime;
+    } else {
+        return 0;
+    }
 }
 
 int Planner::average_wait() {
+    node* cursor = head;
+    int counter = 0;
+    int totalWait = 0;
+    DateTime temp;
+    temp.make_now();
 
-    return 1;
+    while (cursor != NULL) {
+        counter++;
+        totalWait += temp.minutes_since_1970() - cursor->data().get_entered().minutes_since_1970();
+
+        cursor = cursor->link();
+    }
+    return (totalWait / counter);
 }
 
 int Planner::oldest() {
+    node* cursor = head;
+    DateTime temp;
+    temp.make_now();
+
+    
 
     return 1;
 }

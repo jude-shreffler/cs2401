@@ -18,7 +18,7 @@ class Planner {
         Assignment find(std::string assignmentName);
         void remove(std::string assignmentName);
         int waiting();
-        int due_next();
+        unsigned int due_next();
         int average_wait();
         int oldest();
         int newest();
