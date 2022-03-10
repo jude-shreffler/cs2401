@@ -27,21 +27,27 @@ Planner::~Planner() {
 
 Planner::Planner(Planner& plannerOld) {
     /// construct
-    head = NULL;
+    head = new node;
     node* cursorNew = head;
     node* cursorOld = plannerOld.head;
-    node* deleter = plannerOld.head;
+    
+    if (cursorOld == NULL) {
+        head = NULL;
+        return;
+    }
 
-    /// copy & delete
-    while (cursorOld != NULL) {
-        cursorNew->set_data(cursorOld->data());
+    cursorNew->set_data(cursorOld->data());
+
+    /// copy
+    while (cursorOld->link() != NULL) {
+        cursorNew->set_link(new node);
         cursorNew = cursorNew->link();
         cursorOld = cursorOld->link();
-        delete deleter;
-        deleter = cursorOld;
+
+        cursorNew->set_data(cursorOld->data());
     }
-    
-    delete plannerOld.head;
+
+    cursorNew->set_link(NULL);
 
 }
 
@@ -195,17 +201,48 @@ int Planner::oldest() {
     DateTime temp;
     temp.make_now();
 
-    
+    unsigned int oldestTime = cursor->data().get_entered().minutes_since_1970();
+    cursor = cursor->link();
 
-    return 1;
+    while (cursor != NULL) {
+        if (cursor->data().get_entered().minutes_since_1970() < oldestTime) {
+            oldestTime = cursor->data().get_entered().minutes_since_1970();
+        }
+
+        cursor = cursor->link();
+    }
+
+    return temp.minutes_since_1970() - oldestTime;
 }
 
 int Planner::newest() {
+    node* cursor = head;
+    DateTime temp;
+    temp.make_now();
 
-    return 1;
+    unsigned int newestTime = cursor->data().get_entered().minutes_since_1970();
+    cursor = cursor->link();
+
+    while (cursor != NULL) {
+        if (cursor->data().get_entered().minutes_since_1970() > newestTime) {
+            newestTime = cursor->data().get_entered().minutes_since_1970();
+        }
+
+        cursor = cursor->link();
+    }
+
+    return temp.minutes_since_1970() - newestTime;
 }
 
 void Planner::find_all(DateTime& due_by) {
+    node* cursor = head;
+    
+    while(cursor != NULL) {
+        if (cursor->data().get_due() < due_by) {
+            cout << cursor->data();
+        }
 
+        cursor = cursor->link();
+    }
 }
 
