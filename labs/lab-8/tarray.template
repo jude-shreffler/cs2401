@@ -1,0 +1,73 @@
+// makes an object with a dynamic array of size 5
+template<class T>
+Tarray<T>::Tarray() {
+    capacity = 5;
+    used = 0;
+    current_index = 0;
+    data = new T[capacity];
+}
+
+// puts the item into the next available spot in the 
+// array. If the array is full, resize is called.
+template<class T>
+void Tarray<T>::add(T item) {
+    if (used == capacity) {
+        resize();
+    }
+
+    data[used] = item;
+    used++;
+}
+
+// iterator functions
+// places current_index at the beginning of the array
+template<class T>
+void Tarray<T>::start() {
+    current_index = 0;
+}
+
+// returns true if the current index is less than used
+template<class T>
+bool Tarray<T>::is_item()const {
+    if (current_index < used) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+// moves current index to the next array location
+template<class T>
+void Tarray<T>::advance() {
+    current_index++;
+}
+
+// returns the array item referenced by cuurent index
+template<class T>
+T Tarray<T>::current()const {
+    if (is_item()) {
+        return data[current_index];
+    } else {
+        return T();
+    }
+}
+
+// removes the item at the current index
+template<class T>
+void Tarray<T>::remove_current() {
+    used--;
+    data[current_index] = data[used];
+}
+
+template<class T>
+void Tarray<T>::resize() {
+    capacity += 5;
+    T* temp = new T[capacity];
+
+    for (int i = 0; i < capacity - 5; i++) {
+        temp[i] = data[i];
+    }
+
+    delete []data;
+    data = temp;
+}
