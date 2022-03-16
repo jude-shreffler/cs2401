@@ -1,0 +1,24 @@
+#include "node.h"
+
+template<class T>
+bool node_iterator<T>::operator != (node_iterator<T> other)const {
+    return current != other.current;
+}
+
+template<class T>
+T node_iterator<T>::operator * ()const {
+    return current->data();
+}
+
+template<class T>
+node_iterator<T> node_iterator<T>::operator ++ () {
+    current = current->next();
+    return *this;
+}
+
+template<class T>
+node_iterator<T> node_iterator<T>::operator ++ (int) {
+    node_iterator<T> original(*this);
+    current = current->next();
+    return original;
+}
