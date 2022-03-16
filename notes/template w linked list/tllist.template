@@ -1,0 +1,31 @@
+#include <iostream>
+
+using namespace std;
+
+template<class T>
+TLList<T>::TLList() {
+    head = tail = NULL;
+}
+
+template<class T>
+TLList<T>::TLList(const TLList<T>& other) {
+
+}
+
+template<class T>
+void TLList<T>::add(const T& item) {
+    if (head == NULL) {
+        head = tail = new node<T>(item);
+    }
+    else {
+        tail->set_link(new node<T>(item));
+        tail = tail->link();
+    }
+}
+
+template<class T>
+void TLList<T>::display(ostream& outs)const {
+    for (node<T>* cursor = head; cursor != NULL; cursor = cursor->link()) {
+        outs << cursor->data();
+    }
+}
