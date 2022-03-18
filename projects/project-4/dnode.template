@@ -1,0 +1,6 @@
+template<class T>
+dNode<T>::dNode(T d, dNode* n, dNode* p) {
+    dataField = d;
+    nextField = n;
+    previousField = p;
+}
