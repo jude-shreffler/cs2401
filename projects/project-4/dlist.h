@@ -9,6 +9,9 @@ class dlist {
         /// constructors
         dlist();
 
+        void rear_insert(const T d);
+        void show();
+
     private:
         dNode<T>* head;
         dNode<T>* tail;

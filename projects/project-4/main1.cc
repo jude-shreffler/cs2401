@@ -19,13 +19,11 @@ int main(){
    dlist<int> lis1, lis2;
 
    // testing rear_insert and show
-/*
    int tmp;
    for(int i = 0; i < 10; ++i)
 	   lis1.rear_insert(i);
    lis1.show();
    cout << endl << endl;
-*/
 
 // testing front_insert and show
 /*
