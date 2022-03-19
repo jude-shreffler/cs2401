@@ -9,6 +9,18 @@ dlist<T>::dlist() {
 }
 
 template<class T>
+void dlist<T>::front_insert(const T d) {
+    if (head == NULL) {
+        dNode<T>* temp = new dNode<T>(d);
+        head = temp;
+        tail = temp;
+    } else {
+        head->setPrevious(new dNode<T>(d, NULL, head));
+        head = head->previous();
+    }
+}
+
+template<class T>
 void dlist<T>::rear_insert(const T d) {
     if (tail == NULL) {
         dNode<T>* temp = new dNode<T>(d);
@@ -18,6 +30,18 @@ void dlist<T>::rear_insert(const T d) {
         tail->setNext(new dNode<T>(d, tail, NULL));
         tail = tail -> next();
     }
+}
+
+template<class T>
+void dlist<T>::front_remove() {
+    head = head->next();
+    head->setPrevious(NULL);
+}
+
+template<class T>
+void dlist<T>::rear_remove() {
+    tail = tail->previous();
+    tail->setNext(NULL);
 }
 
 template<class T>

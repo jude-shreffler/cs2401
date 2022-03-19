@@ -26,20 +26,16 @@ int main(){
    cout << endl << endl;
 
 // testing front_insert and show
-/*
    for(int i = 100; i < 110; ++i)
 	   lis2.front_insert(i);    
    lis2.show();
    cout << endl << endl;
-*/
 
 // testing the front and rear removes
-/*
    lis1.front_remove();
    lis1.rear_remove();
    lis1.show();
    cout << endl << endl;
-*/
 
 // testing if the list can be traversed in both directions
 /*

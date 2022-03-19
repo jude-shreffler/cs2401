@@ -9,7 +9,12 @@ class dlist {
         /// constructors
         dlist();
 
+        void front_insert(const T d);
         void rear_insert(const T d);
+
+        void front_remove();
+        void rear_remove();
+        
         void show();
 
     private:
