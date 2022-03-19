@@ -38,10 +38,8 @@ int main(){
    cout << endl << endl;
 
 // testing if the list can be traversed in both directions
-/*
    lis1.reverse_show();
    cout << endl << endl;
-*/
 
 // declaring an iterator and using it to traverse list frontwards
 /*

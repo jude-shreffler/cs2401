@@ -14,7 +14,8 @@ class dlist {
 
         void front_remove();
         void rear_remove();
-        
+
+        void reverse_show();
         void show();
 
     private:

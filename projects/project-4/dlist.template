@@ -45,6 +45,15 @@ void dlist<T>::rear_remove() {
 }
 
 template<class T>
+void dlist<T>::reverse_show() {
+    dNode<T>* cursor = tail;
+    while (cursor != NULL) {
+        cout << cursor -> data() << endl;
+        cursor = cursor->previous();
+    }
+}
+
+template<class T>
 void dlist<T>::show() {
     dNode<T>* cursor = head;
     while (cursor != NULL) {
