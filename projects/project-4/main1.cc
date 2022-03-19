@@ -97,7 +97,7 @@ int main(){
    for(it1 = lis2.r_begin(); it1 != lis2.r_end(); --it1)
       cout << *it1 << endl;
    cout << endl << endl;
-/*
+*/
 
 // testing copy constructor and assignment operator
 /*
