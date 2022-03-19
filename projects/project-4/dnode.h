@@ -5,7 +5,7 @@ template<class T>
 class dNode {
     public:
         /// constructor
-        dNode(T d = T(), dNode* n = NULL, dNode* p = NULL);
+        dNode(T d = T(), dNode* p = NULL, dNode* n = NULL);
 
         /// setters
         void setData(T d) {dataField = d;}
