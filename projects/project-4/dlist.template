@@ -7,18 +7,18 @@ dlist<T>::dlist() {
 template<class T>
 void dlist<T>::rear_insert(const T d) {
     if (tail == NULL) {
-        dnode temp = new dnode(d);
+        dNode<T> temp = new dNode<T>(d);
         head = temp;
         tail = temp;
     } else {
-        tail->setNext(new dnode(d, tail, NULL));
+        tail->setNext(new dNode<T>(d, tail, NULL));
         tail = tail -> next();
     }
 }
 
 template<class T>
 void dlist<T>::show() {
-    dnode* cursor = head;
+    dNode<T>* cursor = head;
     while (cursor != NULL) {
         cout << cursor->data() << endl;
         cursor = cursor->next();
