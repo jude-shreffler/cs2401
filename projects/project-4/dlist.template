@@ -33,6 +33,44 @@ void dlist<T>::rear_insert(const T d) {
 }
 
 template<class T>
+void dlist<T>::insert_before(const dlist<T>::iterator it, const T d) {
+    if (!it.current) { /// empty list
+        cout << "Your list is empty, and therefore cannot have an element added" << endl;
+        return;
+    } else if (head == tail || it.current == head) {
+        it.current->setPrevious(new dNode<T>(d, NULL, head));
+        head = head->previous();
+        return;
+    } else {
+        dNode<T>* before = it.current->previous();
+        dNode<T>* temp = new dNode<T>(d, before, it.current);
+
+        before->setNext(temp);
+        it.current->setPrevious(temp);
+        return;
+    }
+}
+
+template<class T>
+void dlist<T>::insert_after(const dlist<T>::iterator it, const T d) {
+    if (!it.current) {
+        cout << "Your list is empty, and therefore cannot have an element added" << endl;
+        return;
+    } else if (tail == head || it.current == tail) {
+        it.current->setNext(new dNode<T>(d, tail, NULL));
+        tail = tail->next();
+        return;
+    } else {
+        dNode<T>* after = it.current->next();
+        dNode<T>* temp = new dNode<T>(d, it.current, after);
+
+        it.current->setNext(temp);
+        after->setPrevious(temp);
+        return;
+    }
+}
+
+template<class T>
 void dlist<T>::front_remove() {
     head = head->next();
     head->setPrevious(NULL);
@@ -60,4 +98,16 @@ void dlist<T>::show() {
         cout << cursor->data() << endl;
         cursor = cursor->next();
     }
+}
+
+template <class T>
+int dlist<T>::size() {
+    dNode<T>* cursor = head;
+    int i = 0;
+    while (cursor != NULL) {
+        ++i;
+        cursor = cursor->next();
+    }
+
+    return i;
 }

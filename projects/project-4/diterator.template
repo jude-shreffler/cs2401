@@ -1,0 +1,41 @@
+template<class T>
+diterator<T>& diterator<T>::operator ++ () { /// Prefix ++
+    current = current->next();
+    return *this;
+}
+
+template<class T>
+diterator<T>& diterator<T>::operator ++ (int) { // Postfix ++
+    diterator<T> original(current);
+    current = current->next();
+    return original;
+}
+
+template<class T>
+diterator<T>& diterator<T>::operator -- () { /// Prefix --
+    current = current->previous();
+    return *this;
+}
+
+template<class T>
+diterator<T>& diterator<T>::operator -- (int) { // Postfix --
+    diterator<T> original(current);
+    current = current->previous();
+    return original;
+}
+
+
+template<class T>
+bool diterator<T>::operator != (const diterator<T> other) const {
+    if (!current) { /// a null pointer will return false
+        if (!other.current) {
+            return false;
+        } else {
+            return true;
+        }
+    } else if (!other.current) {
+        return true;
+    } else {
+        return current->data() != other.current->data();
+    }
+}
