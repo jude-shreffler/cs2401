@@ -23,19 +23,3 @@ diterator<T>& diterator<T>::operator -- (int) { // Postfix --
     current = current->previous();
     return original;
 }
-
-
-template<class T>
-bool diterator<T>::operator != (const diterator<T> other) const {
-    if (!current) { /// a null pointer will return false
-        if (!other.current) {
-            return false;
-        } else {
-            return true;
-        }
-    } else if (!other.current) {
-        return true;
-    } else {
-        return current->data() != other.current->data();
-    }
-}

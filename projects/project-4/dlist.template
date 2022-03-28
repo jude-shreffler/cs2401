@@ -152,6 +152,19 @@ void dlist<T>::rear_remove() {
 }
 
 template<class T>
+void dlist<T>::remove(dlist<T>::iterator it) {
+    dNode<T>* before = it.current->previous();
+    dNode<T>* after = it.current->next();
+
+    before->setNext(after);
+    after->setPrevious(before);
+
+    delete it.current;
+    
+    it.current = before;
+}
+
+template<class T>
 void dlist<T>::reverse_show() {
     dNode<T>* cursor = tail;
     while (cursor != NULL) {
