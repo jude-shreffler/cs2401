@@ -1,0 +1,5 @@
+template<class T>
+node<T>::node(T& data, node<T>* next) {
+    dataField = data;
+    nextField = next;
+}

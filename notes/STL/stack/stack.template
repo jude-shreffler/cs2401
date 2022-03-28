@@ -1,0 +1,80 @@
+#include <iostream>
+
+using namespace std;
+
+template <class T>
+STACK<T>::~STACK() {
+    node<T>* cursor = topPtr;
+    node<T>* deleter = topPtr;
+    while (cursor != NULL) {
+        cursor = cursor->next();
+        delete deleter;
+        deleter = cursor;
+    }
+}
+
+template<class T>
+STACK<T>::STACK(STACK<T>& other) {
+    node<T>* cursor = topPtr;
+    node<T>* otherCursor = other.topPtr;
+
+    if (other.empty()) {
+        topPtr = NULL;
+    } else {
+        while (other.topPtr != NULL) {
+            cursor->setData(otherCursor->data());
+            cursor = cursor -> next();
+            otherCursor = otherCursor -> next();
+        }
+    }
+}
+
+template<class T>
+void STACK<T>::operator = (STACK<T>& other) {
+    node<T>* cursor = topPtr;
+    node<T>* otherCursor = other.topPtr;
+
+    if (other.empty()) {
+        topPtr = NULL;
+    } else {
+        while (other.topPtr != NULL) {
+            cursor->setData(otherCursor->data());
+            cursor = cursor -> next();
+            otherCursor = otherCursor -> next();
+        }
+    }
+}
+
+template <class T>
+void STACK<T>::push(T& d) {
+    topPtr = new node<T>(d, topPtr);
+}
+
+template <class T>
+void STACK<T>::pop() {
+    if (empty()) {
+        return;
+    }
+
+    node<T>* rmptr = topPtr;
+    topPtr = topPtr->next();
+    delete rmptr;
+}
+
+template <class T>
+void STACK<T>::output(std::ostream& outs) {
+    node<T>* cursor = topPtr;
+
+    cout << "{";
+    if(cursor != NULL) {
+        cout << cursor->data();
+        cursor = cursor->next();
+    }
+    
+    while (cursor != NULL) {
+        cout << ", " << cursor->data();
+        cursor = cursor->next();
+    }
+
+    cout << "}";
+}

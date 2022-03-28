@@ -8,8 +8,13 @@ template<class T>
 class dlist {
     public:
         typedef diterator<T> iterator;
-        /// constructors
+        /// constructor
         dlist();
+
+        /// big 3
+        ~dlist();
+        dlist(dlist<T>& d);
+        dlist<T> operator = (dlist<T>& d);
 
         /// inserts
         void front_insert(const T d);

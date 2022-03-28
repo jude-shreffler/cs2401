@@ -9,6 +9,75 @@ dlist<T>::dlist() {
 }
 
 template<class T>
+dlist<T>::~dlist() {
+    dNode<T>* deleter;
+    dNode<T>* cursor = head;
+
+    while (cursor != NULL) {
+        deleter = cursor;
+        cursor = cursor->next();
+        delete deleter;
+    }
+}
+
+template<class T>
+dlist<T>::dlist(dlist<T>& d) {
+    dNode<T>* cursord = d.head;
+
+    if(cursord == NULL) {
+        head = NULL;
+        tail = NULL;
+        return;
+    }
+
+    head = new dNode<T>(cursord->data(), NULL, NULL);
+    dNode<T>* cursor = head;
+
+    while (cursord->next() != NULL) {
+        cursord = cursord->next();
+        cursor->setNext(new dNode<T>(cursord->data(), cursor, NULL));
+        cursor = cursor->next();
+    }
+
+    tail = cursor;
+}
+
+template<class T>
+dlist<T> dlist<T>::operator = (dlist<T>& d) {
+    /// deletion code
+    dNode<T>* cursor = head;
+    dNode<T>* deleter = head;
+
+    while (cursor != NULL) {
+        cursor = cursor->next();
+        delete deleter;
+        deleter = cursor;
+    }
+
+    /// copy code
+    dNode<T>* cursord = d.head;
+
+    if(cursord == NULL) {
+        head = NULL;
+        tail = NULL;
+        return *this;
+    }
+
+    head = new dNode<T>(cursord->data(), NULL, NULL);
+    cursor = head;
+
+    while (cursord->next() != NULL) {
+        cursord = cursord->next();
+        cursor->setNext(new dNode<T>(cursord->data(), cursor, NULL));
+        cursor = cursor->next();
+    }
+
+    tail = cursor;
+
+    return *this;
+}
+
+template<class T>
 void dlist<T>::front_insert(const T d) {
     if (head == NULL) {
         dNode<T>* temp = new dNode<T>(d);
