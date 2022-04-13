@@ -7,10 +7,10 @@ class node {
         node(T d = T(), node* n = NULL);
 
         T data()const {return data_field;}
-        node* link()const {return next_field;}
+        node* next()const {return next_field;}
 
         void set_data(T data) {data_field = data;}
-        void set_link(node* n) {next_field = n;}
+        void set_next(node* n) {next_field = n;}
 
     private:
         T data_field;

@@ -56,9 +56,9 @@ int main(int argc, char *argv[]){
 		rowcount++;
 		if(rowcount % 20 == 0)
 			fout << "</tr><tr>";
-		if(fin.peek() == '\n'){
+		if(fin.peek() == '\n' || fin.peek() == '\r'){
 			fin.ignore();
-			while(fin.peek() == '\n'){
+			while(fin.peek() == '\n' || fin.peek() == '\n'){
 				rowcount = 0;
 				fin.ignore();
 				fout << "</tr><tr><td width = 16 height = 16>OOOO</td></tr><tr><td>OOOO</td></tr><tr>";

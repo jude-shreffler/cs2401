@@ -1,0 +1,5 @@
+MountainBike full trigger 26 17 disc red 
+RoadBike friction 700 17 disc orange 
+Cruiser 700 coaster 0 yellow 
+BMX 24 coaster green 
+Fixie 700 0 1 blue 

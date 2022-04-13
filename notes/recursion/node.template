@@ -1,0 +1,5 @@
+template <class T>
+node<T>::node(T d, node<T>* n) {
+    data_field = d;
+    next_field = n;
+}

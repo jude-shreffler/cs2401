@@ -142,13 +142,17 @@ void dlist<T>::insert_after(const dlist<T>::iterator it, const T d) {
 template<class T>
 void dlist<T>::front_remove() {
     head = head->next();
-    head->setPrevious(NULL);
+    if (head != NULL){
+    head->setPrevious(NULL);        
+    }
 }
 
 template<class T>
 void dlist<T>::rear_remove() {
     tail = tail->previous();
-    tail->setNext(NULL);
+    if (tail != NULL) {
+        tail->setNext(NULL);
+    }
 }
 
 template<class T>
