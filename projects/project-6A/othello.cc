@@ -18,6 +18,30 @@ Othello::Othello() {
     board[4][3] = Piece(0);
     board[3][3] = Piece(2);
     board[4][4] = Piece(2);
+
+    cout << D_GREEN;
+    cout << "        ....              s                                 ..       ..             \n" <<
+            "    .x~X88888Hx.         :8      .uef^\"               x .d88\"  x .d88\"              \n" <<
+            "   H8X 888888888h.      .88    :d88E                   5888R    5888R          u.   \n" <<
+            "  8888:`*888888888:    :888ooo `888E            .u     \'888R    \'888R    ...ue888b  \n" <<
+            "  88888:        `%8  -*8888888  888E .z8k    ud8888.    888R     888R    888R Y888r \n" <<
+            ". `88888          ?>   8888     888E~?888L :888\'8888.   888R     888R    888R I888> \n" <<
+            "`. ?888%           X   8888     888E  888E d888 \'88%\"   888R     888R    888R I888> \n" <<
+            "  ~*??.            >   8888     888E  888E 8888.+\"      888R     888R    888R I888> \n" <<
+            " .x88888h.        <   .8888Lu=  888E  888E 8888L        888R     888R   u8888cJ888  \n" <<
+            ":\"\"\"8888888x..  .x    ^%888*    888E  888E \'8888c. .+  .888B .  .888B .  \"*888*P\"   \n" <<
+            "`    `*888888888\"       \'Y\"    m888N= 888>  \"88888%    ^*888%   ^*888%     \'Y\"      \n" <<
+            "        \"\"***\"\"                 `Y\"   888     \"YP\'       \"%       \"%                \n" <<
+            "                                     J88\"                                           \n" <<
+            "                                     @%                                             \n" <<
+            "                                   :\"                                               \n";
+    cout << endl;
+    cout << "                   .-. .-. .-. .-. .-.   .-. . . .-. .-. .-. \n" <<
+            "                   |-' |(  |-  `-. `-.   |-  |\\|  |  |-  |(  \n" << 
+            "                   '   ' ' `-' `-' `-'   `-' ' `  '  `-' ' ' \n";
+    
+    string temp;
+    getline(cin, temp);         
 }
 
 void Othello::make_move(const string& move) {
@@ -237,22 +261,22 @@ void Othello::compute_moves(queue<string>& moves) const {
 }
 
 void Othello::display_status() const {
-    cout << MENU << "Player 1 is X, Player 2 is O" << RESET  << endl;
-    cout << "     A   B   C   D   E   F   G   H" << endl;
+    string fill = "                     ";
+    cout << fill << "     Player 1 is " << Piece(0) << " , Player 2 is " << Piece(2) << endl;
+    cout << fill << "     A   B   C   D   E   F   G   H" << endl;
     for (int i = 0; i < 8; ++i) {
         if (i == 0) {
-            cout << "   ╔═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╗";
-        } else {
-            cout << "   ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣";
+            cout << fill << "   ╔═══╦═══╦═══╦═══╦═══╦═══╦═══╦═══╗";
+        } else { 
+            cout << fill << "   ╠═══╬═══╬═══╬═══╬═══╬═══╬═══╬═══╣";
         }
-        cout << endl << " " << (i + 1) << " ║ ";
+        cout << endl << fill << " " << (i + 1) << " ║ ";
         for (int j = 0; j < 8; j++) {
-            board[i][j].output();
-            cout << " ║ ";
+            cout << board[i][j] << " ║ ";
         }
         cout << endl;
     }
-    cout << "   ╚═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╝" << endl;
+    cout << fill << "   ╚═══╩═══╩═══╩═══╩═══╩═══╩═══╩═══╝" << endl;
 }
 
 int Othello::evaluate() const {

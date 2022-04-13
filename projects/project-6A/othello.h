@@ -3,6 +3,9 @@
 
 #include "game.h"
 #include "piece.h"
+#include <string>
+
+const std::string D_GREEN = "\e[48;5;22m";
 
 class Othello : public main_savitch_14::game {
     public:

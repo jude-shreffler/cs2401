@@ -4,12 +4,19 @@
 
 using namespace std;
 
-void Piece::output() const {
+ostream& Piece::output(ostream& outs) const {
     if (occupied == 1) {
-        cout << "-";
+        outs << " ";
     } else if (occupied == 0) {
-        cout << RED << "X" << RESET;
+        outs << BLACK << "@" << WHITE;
     } else if (occupied == 2) {
-        cout << BLUE << "O" << RESET;
+        outs << "@";
     }
+
+    return outs;
+}
+
+ostream& operator << (ostream& outs, const Piece& p) {
+    p.output(outs);
+    return outs;
 }

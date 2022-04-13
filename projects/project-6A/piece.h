@@ -1,6 +1,8 @@
 #ifndef PIECE_H
 #define PIECE_H
 
+#include <iostream>
+
 class Piece {
     public:
         /// constructor
@@ -14,10 +16,12 @@ class Piece {
 
         /// helpers
         void flip() {(occupied == 0) ? occupied = 2 : occupied = 0;}
-        void output() const;
+        std::ostream& output(std::ostream& outs) const;
 
     private:
         int occupied; /// 0, 1, or 2 (0 - Human : 1 - Neutral : 2 - PC)
 };
+
+std::ostream& operator << (std::ostream& outs, const Piece& p);
 
 #endif
