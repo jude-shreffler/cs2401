@@ -5,9 +5,9 @@
 using namespace std;
 
 void Piece::output() const {
-    if (occupied == 0) {
+    if (occupied == 1) {
         cout << "-";
-    } else if (occupied == 1) {
+    } else if (occupied == 0) {
         cout << RED << "X" << RESET;
     } else if (occupied == 2) {
         cout << BLUE << "O" << RESET;

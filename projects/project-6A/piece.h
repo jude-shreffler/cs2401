@@ -4,20 +4,20 @@
 class Piece {
     public:
         /// constructor
-        Piece(int o = 0) {occupied = o;}
+        Piece(int o = 1) {occupied = o;}
 
         /// setter
-        void setOccupied(const int o) {(o >= 0 && o <= 2) ? occupied = o : occupied = 0;}
+        void setOccupied(const int o) {(o >= 0 && o <= 2) ? occupied = o : occupied = 1;}
 
         /// getter
         int getOccupied() const {return occupied;}
 
         /// helpers
-        void flip() {(occupied == 1) ? occupied = 2 : occupied = 1;}
+        void flip() {(occupied == 0) ? occupied = 2 : occupied = 0;}
         void output() const;
 
     private:
-        int occupied; /// 0, 1, or 2
+        int occupied; /// 0, 1, or 2 (0 - Human : 1 - Neutral : 2 - PC)
 };
 
 #endif
