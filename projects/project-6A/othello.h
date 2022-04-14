@@ -5,7 +5,8 @@
 #include "piece.h"
 #include <string>
 
-const std::string D_GREEN = "\e[48;5;22m";
+const std::string D_GREEN_B = "\e[48;5;22m";
+const std::string D_GRAY = "\e[38;5;234     m";
 
 class Othello : public main_savitch_14::game {
     public:
