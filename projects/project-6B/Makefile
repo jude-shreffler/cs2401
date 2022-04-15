@@ -3,3 +3,6 @@ CFLAGS = -Wall
 
 make: samplemain.cc othello.cc game.cc piece.cc
 	$(CC) $(CFLAGS) samplemain.cc othello.cc game.cc piece.cc
+
+gdb: samplemain.cc othello.cc game.cc piece.cc
+	$(CC) $(CFLAGS) -g samplemain.cc othello.cc game.cc piece.cc

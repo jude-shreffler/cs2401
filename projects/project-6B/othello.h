@@ -5,10 +5,12 @@
 #include "piece.h"
 #include <string>
 
-const std::string D_GREEN_B = "\e[48;5;22m";
-const std::string D_GRAY = "\e[38;5;234     m";
+using namespace main_savitch_14;
 
-class Othello : public main_savitch_14::game {
+const std::string D_GREEN_B = "\e[48;5;22m";
+const std::string D_GRAY = "\e[38;5;234m";
+
+class Othello : public game {
     public:
         /// constructor
         Othello();
@@ -19,10 +21,11 @@ class Othello : public main_savitch_14::game {
         void restart();
 
         /// optional overrides
-        main_savitch_14::game::who winning() const;
+        game::who winning() const;
+        std::string get_user_move() const;
 
         /// purely virtual functions from game
-        main_savitch_14::game* clone() const;
+        game* clone() const;
         void compute_moves(std::queue<std::string>& moves) const;
         void display_status() const;
         int evaluate() const;

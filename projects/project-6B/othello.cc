@@ -6,6 +6,7 @@
 #include <cctype>
 
 using namespace std;
+using namespace main_savitch_14;
 
 Othello::Othello() {
     for (int i = 0; i < 7; ++i){
@@ -43,7 +44,7 @@ Othello::Othello() {
             "                                     J88\"                                           \n" <<
             "                                     @%                                             \n" <<
             "                                   :\"                                               \n";
-    cout << endl;
+    cout << "\n";
     cout << "                   .-. .-. .-. .-. .-.   .-. . . .-. .-. .-. \n" <<
             "                   |-' |(  |-  `-. `-.   |-  |\\|  |  |-  |(  \n" << 
             "                   '   ' ' `-' `-' `-'   `-' ' `  '  `-' ' ' \n";
@@ -56,7 +57,7 @@ void Othello::make_move(const string& move) {
     int i = int(move[1] - '0' - 1);
     int j = ((isupper(move[0])) ? move[0] - 'A' : move[0] - 'a');
     board[i][j].setOccupied(
-        ((last_mover() == main_savitch_14::game::who::HUMAN) ? 2 : 0));
+        ((last_mover() == game::who::HUMAN) ? 2 : 0));
 
     int checkFor = last_mover();
     int thisMover = next_mover();
@@ -197,7 +198,7 @@ void Othello::make_move(const string& move) {
         } else if (check == thisMover) {
             /// do the flipping
             for (int m = 1; m < n; ++m) {
-                board[i-m][j-m].flip();
+                board[i+m][j-m].flip();
             }
             break;
         } else {
@@ -251,17 +252,28 @@ void Othello::make_move(const string& move) {
         } else {
             break;
         }
-    }    
+    }
+
+    game::make_move(move);
 }
 
 void Othello::restart() {
 }
 
-main_savitch_14::game::who Othello::winning() const {
-    return main_savitch_14::game::who();
+game::who Othello::winning() const {
+    return game::who();
 }
 
-main_savitch_14::game* Othello::clone() const {
+string Othello::get_user_move() const{
+	string answer;
+	string player = (next_mover() == 2 ? "2" : "1");
+
+	display_message("Player " + player + ", make your move: ");
+	getline(cin, answer);
+	return answer;
+}
+
+game* Othello::clone() const {
     return new Othello();
 }
 
@@ -269,8 +281,14 @@ void Othello::compute_moves(queue<string>& moves) const {
 }
 
 void Othello::display_status() const {
-    string fill = "                     ";
-    cout << fill << "     Player 1 is " << Piece(0) << " , Player 2 is " << Piece(2) << endl;
+    /* TODO: DECIDE IF U WANT THIS OR NOT
+    for (int i = 0; i < 100; ++i) {
+        cout << "\n";
+    }
+    */
+
+    string fill = "                     "; 
+    cout << fill << "     Player 1 is " << Piece(0) << " , Player 2 is " << Piece(2) << endl; 
     cout << fill << "     A   B   C   D   E   F   G   H" << endl;
     for (int i = 0; i < 8; ++i) {
         if (i == 0) {
@@ -292,15 +310,29 @@ int Othello::evaluate() const {
 }
 
 bool Othello::is_game_over() const {
+    for (int i = 0; i < 8; ++i) {
+        for (int j = 0; j < 8; ++j) {
+            char let = 'a' + j;
+            char num = i + '1';
+            string move = string(1, let) + string(1, num);
+            if (!is_legal(move)) {
+                return true;
+            }
+        }
+    }
     return false;
 }
 
 bool Othello::is_legal(const string& move) const {
-    int i = move[1] - '0' - 1;
+    int i = move[1] - '1';
     int j = ((isupper(move[0])) ? move[0] - 'A' : move[0] - 'a');
 
-    int checkFor = (last_mover() == main_savitch_14::game::who::HUMAN ? 0 : 2);
-    int thisMover = (last_mover() == main_savitch_14::game::who::HUMAN ? 2 : 0);
+    if (board[i][j].getOccupied() == 1) {
+        return false;
+    }
+
+    int checkFor = (last_mover() == game::who::HUMAN ? 0 : 2);
+    int thisMover = (last_mover() == game::who::HUMAN ? 2 : 0);
 
     for (int n = 1; i - n >= 0; ++n) { // check up
         int check = board[i-n][j].getOccupied();
