@@ -5,6 +5,8 @@
 #include <queue>
 #include <cctype>
 
+#include<unistd.h> // for debug purposes
+
 using namespace std;
 using namespace main_savitch_14;
 
@@ -50,10 +52,18 @@ Othello::Othello() {
             "                   '   ' ' `-' `-' `-'   `-' ' `  '  `-' ' ' \n";
     
     string temp;
-    getline(cin, temp);         
+    getline(cin, temp);  
+
+    //DEBUG:
+    //unsigned int microsecond = 1000000;
+    //usleep(microsecond / 3); //sleeps for 3 second       
 }
 
 void Othello::make_move(const string& move) {
+    if (toupper(move[0]) == 'X' && toupper(move[1] == 'X')) {
+        return;
+    }
+
     int i = int(move[1] - '0' - 1);
     int j = ((isupper(move[0])) ? move[0] - 'A' : move[0] - 'a');
     board[i][j].setOccupied(
@@ -268,7 +278,7 @@ string Othello::get_user_move() const{
 	string answer;
 	string player = (next_mover() == 2 ? "2" : "1");
 
-	display_message("Player " + player + ", make your move: ");
+	display_message("Player " + player + ", make your move (enter \"xx\" to skip): ");
 	getline(cin, answer);
 	return answer;
 }
@@ -314,25 +324,221 @@ bool Othello::is_game_over() const {
         for (int j = 0; j < 8; ++j) {
             char let = 'a' + j;
             char num = i + '1';
-            string move = string(1, let) + string(1, num);
-            if (!is_legal(move)) {
-                return true;
+            string move = string(1, let) + string(1, num) + string(1, 'a');
+            if (is_legal(move)) {
+                return false;
             }
         }
     }
-    return false;
+
+    return true;
 }
 
 bool Othello::is_legal(const string& move) const {
-    int i = move[1] - '1';
-    int j = ((isupper(move[0])) ? move[0] - 'A' : move[0] - 'a');
+    if (move.length() == 3) { // move length being 3 denotes that Othello::is_game_over is calling the
+                              // function, and therefore needs the move checked for player 1 and player 2.
+                              // so, we first check the move from the point of view of the player who went
+                              // last, then the player who goes next
+        int i = move[1] - '1';
+        int j = ((isupper(move[0])) ? move[0] - 'A' : move[0] - 'a');
 
-    if (board[i][j].getOccupied() == 1) {
+        if (board[i][j].getOccupied() != 1) {
+            return false;
+        }
+
+        int checkFor = next_mover();
+        int thisMover = last_mover();
+
+        for (int n = 1; i - n >= 0; ++n) { // check up
+            int check = board[i - n][j].getOccupied();
+
+            if (n == 1) {
+                if (check != checkFor) {
+                    break;
+                } else {
+                    continue;
+                }
+            }
+
+            if (check == checkFor)  {
+                continue;
+            } else if (check == thisMover) {
+                return true;
+            } else {
+                break;
+            }
+        }
+
+        for (int n = 1; i + n < 8; ++n) { // check down
+            int check = board[i + n][j].getOccupied();
+
+            if (n == 1) {
+                if (check != checkFor) {
+                    break;
+                } else {
+                    continue;
+                }
+            }
+
+            if (check == checkFor) {
+                continue;
+            } else if (check == thisMover) {
+                return true;
+            } else {
+                break;
+            }
+        }
+
+        for (int n = 1; j - n >= 0; ++n) { // check left
+            int check = board[i][j - n].getOccupied();
+
+            if (n == 1) {
+                if (check != checkFor) {
+                    break;
+                } else {
+                    continue;
+                }
+            }
+
+            if (check == checkFor) {
+                continue;
+            } else if (check == thisMover) {
+                return true;
+            } else {
+                break;
+            }
+        }
+
+        for (int n = 1; j + n < 8; ++n) { // check right
+            int check = board[i][j + n].getOccupied();
+
+            if (n == 1) {
+                if (check != checkFor) {
+                    break;
+                } else {
+                    continue;
+                }
+            }
+
+            if (check == checkFor) {
+                continue;
+            } else if (check == thisMover) {
+                return true;
+            } else {
+                break;
+            }
+        }
+
+        for (int n = 1; i - n >= 0 && j - n >= 0; ++n) { // check up-left
+            int check = board[i - n][j - n].getOccupied();
+
+            if (n == 1) {
+                if (check != checkFor) {
+                    break;
+                } else {
+                    continue;
+                }
+            }
+
+            if (check == checkFor) {
+                continue;
+            } else if (check == thisMover) {
+                return true;
+            } else {
+                break;
+            }
+        }
+
+        for (int n = 1; i + n < 8 && j - n >= 0; ++n) { // check down-left
+            int check = board[i + n][j - n].getOccupied();
+
+            if (n == 1) {
+                if (check != checkFor) {
+                    break;
+                } else {
+                    continue;
+                }
+            }
+
+            if (check == checkFor) {
+                continue;
+            } else if (check == thisMover) {
+                return true;
+            } else {
+                break;
+            }
+        }
+
+        for (int n = 1; i - n >= 0 && j + n < 8; ++n) { // check up-right
+            int check = board[i - n][j + n].getOccupied();
+
+            if (n == 1) {
+                if (check != checkFor) {
+                    break;
+                } else {
+                    continue;
+                }
+            }
+
+            if (check == checkFor) {
+                continue;
+            } else if (check == thisMover) {
+                return true;
+            } else {
+                break;
+            }
+        }
+
+        for (int n = 1; i + n < 8 && j + n < 8; ++n) { // check down-right
+            int check = board[i + n][j + n].getOccupied();
+
+            if (n == 1) {
+                if (check != checkFor) {
+                    break;
+                } else {
+                    continue;
+                }
+            }
+
+            if (check == checkFor) {
+                continue;
+            } else if (check == thisMover) {
+                return true;
+            } else {
+                break;
+            }
+        }
+
         return false;
     }
 
-    int checkFor = (last_mover() == game::who::HUMAN ? 0 : 2);
-    int thisMover = (last_mover() == game::who::HUMAN ? 2 : 0);
+    if (toupper(move[0]) == 'X' && toupper(move[1] == 'X')) {
+        for (int i = 0; i < 8; ++i) {
+            for (int j = 0; j < 8; ++j) {
+                char let = 'a' + j;
+                char num = i + '1';
+                string move = string(1, let) + string(1, num);
+                if (is_legal(move)) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    int i = move[1] - '1';
+    int j = ((isupper(move[0])) ? move[0] - 'A' : move[0] - 'a');
+
+    if (board[i][j].getOccupied() != 1) {
+        return false;
+    }
+
+    int checkFor = last_mover();
+    int thisMover = next_mover();
+
+    //int checkFor = (last_mover() == game::who::HUMAN ? 0 : 2);  // use these if the above dont work
+    //int thisMover = (last_mover() == game::who::HUMAN ? 2 : 0); //
 
     for (int n = 1; i - n >= 0; ++n) { // check up
         int check = board[i-n][j].getOccupied();
